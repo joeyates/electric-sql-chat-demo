@@ -30,6 +30,11 @@ export type Messages = {
    */
   id: string
   text: string | null
+  /**
+   * @zod.string.uuid()
+   */
+  user_id: string | null
+  time: Date | null
 }
 
 
@@ -1735,16 +1740,22 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesMinAggregateOutputType = {
     id: string | null
     text: string | null
+    user_id: string | null
+    time: Date | null
   }
 
   export type MessagesMaxAggregateOutputType = {
     id: string | null
     text: string | null
+    user_id: string | null
+    time: Date | null
   }
 
   export type MessagesCountAggregateOutputType = {
     id: number
     text: number
+    user_id: number
+    time: number
     _all: number
   }
 
@@ -1752,16 +1763,22 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesMinAggregateInputType = {
     id?: true
     text?: true
+    user_id?: true
+    time?: true
   }
 
   export type MessagesMaxAggregateInputType = {
     id?: true
     text?: true
+    user_id?: true
+    time?: true
   }
 
   export type MessagesCountAggregateInputType = {
     id?: true
     text?: true
+    user_id?: true
+    time?: true
     _all?: true
   }
 
@@ -1846,6 +1863,8 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesGroupByOutputType = {
     id: string
     text: string | null
+    user_id: string | null
+    time: Date | null
     _count: MessagesCountAggregateOutputType | null
     _min: MessagesMinAggregateOutputType | null
     _max: MessagesMaxAggregateOutputType | null
@@ -1868,6 +1887,8 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesSelect = {
     id?: boolean
     text?: boolean
+    user_id?: boolean
+    time?: boolean
   }
 
 
@@ -2642,7 +2663,9 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
 
   export const MessagesScalarFieldEnum: {
     id: 'id',
-    text: 'text'
+    text: 'text',
+    user_id: 'user_id',
+    time: 'time'
   };
 
   export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
@@ -2714,11 +2737,15 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     NOT?: Enumerable<MessagesWhereInput>
     id?: UuidFilter | string
     text?: StringNullableFilter | string | null
+    user_id?: UuidNullableFilter | string | null
+    time?: DateTimeNullableFilter | Date | string | null
   }
 
   export type MessagesOrderByWithRelationInput = {
     id?: SortOrder
     text?: SortOrder
+    user_id?: SortOrder
+    time?: SortOrder
   }
 
   export type MessagesWhereUniqueInput = {
@@ -2728,6 +2755,8 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesOrderByWithAggregationInput = {
     id?: SortOrder
     text?: SortOrder
+    user_id?: SortOrder
+    time?: SortOrder
     _count?: MessagesCountOrderByAggregateInput
     _max?: MessagesMaxOrderByAggregateInput
     _min?: MessagesMinOrderByAggregateInput
@@ -2739,6 +2768,8 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     NOT?: Enumerable<MessagesScalarWhereWithAggregatesInput>
     id?: UuidWithAggregatesFilter | string
     text?: StringNullableWithAggregatesFilter | string | null
+    user_id?: UuidNullableWithAggregatesFilter | string | null
+    time?: DateTimeNullableWithAggregatesFilter | Date | string | null
   }
 
   export type ItemsCreateInput = {
@@ -2772,36 +2803,50 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
   export type MessagesCreateInput = {
     id: string
     text?: string | null
+    user_id?: string | null
+    time?: Date | string | null
   }
 
   export type MessagesUncheckedCreateInput = {
     id: string
     text?: string | null
+    user_id?: string | null
+    time?: Date | string | null
   }
 
   export type MessagesUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessagesUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessagesCreateManyInput = {
     id: string
     text?: string | null
+    user_id?: string | null
+    time?: Date | string | null
   }
 
   export type MessagesUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessagesUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter = {
@@ -2876,19 +2921,48 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     not?: NestedStringNullableFilter | string | null
   }
 
+  export type UuidNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter | string | null
+  }
+
+  export type DateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type MessagesCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    user_id?: SortOrder
+    time?: SortOrder
   }
 
   export type MessagesMaxOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    user_id?: SortOrder
+    time?: SortOrder
   }
 
   export type MessagesMinOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
+    user_id?: SortOrder
+    time?: SortOrder
   }
 
   export type UuidWithAggregatesFilter = {
@@ -2924,12 +2998,45 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     _max?: NestedStringNullableFilter
   }
 
+  export type UuidNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+  }
+
+  export type DateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
   }
 
   export type NestedStringFilter = {
@@ -2999,6 +3106,28 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     not?: NestedStringNullableFilter | string | null
   }
 
+  export type NestedUuidNullableFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    not?: NestedUuidNullableFilter | string | null
+  }
+
+  export type NestedDateTimeNullableFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableFilter | Date | string | null
+  }
+
   export type NestedUuidWithAggregatesFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -3039,6 +3168,34 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     gt?: number
     gte?: number
     not?: NestedIntNullableFilter | number | null
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter = {
+    equals?: string | null
+    in?: Enumerable<string> | null
+    notIn?: Enumerable<string> | null
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    not?: NestedUuidNullableWithAggregatesFilter | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedStringNullableFilter
+    _max?: NestedStringNullableFilter
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter = {
+    equals?: Date | string | null
+    in?: Enumerable<Date> | Enumerable<string> | null
+    notIn?: Enumerable<Date> | Enumerable<string> | null
+    lt?: Date | string
+    lte?: Date | string
+    gt?: Date | string
+    gte?: Date | string
+    not?: NestedDateTimeNullableWithAggregatesFilter | Date | string | null
+    _count?: NestedIntNullableFilter
+    _min?: NestedDateTimeNullableFilter
+    _max?: NestedDateTimeNullableFilter
   }
 
 

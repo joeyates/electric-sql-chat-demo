@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {LIB_VERSION} from 'electric-sql/version'
 import {makeElectricContext, useLiveQuery} from 'electric-sql/react'
 import {genUUID, uniqueTabId} from 'electric-sql/util'
@@ -58,6 +58,8 @@ const ChatComponent = () => {
   const {results} = useLiveQuery(db.messages.liveMany())
   const [text, setText] = useState('')
 
+  const user = useMemo(() => genUUID(), [])
+
   useEffect(() => {
     const syncMessages = async () => {
       const shape = await db.messages.sync()
@@ -72,6 +74,7 @@ const ChatComponent = () => {
     await db.messages.create({
       data: {
         id: genUUID(),
+        user_id: user,
         text
       }
     })
@@ -90,9 +93,10 @@ const ChatComponent = () => {
 
   return (
     <div>
+      <h1>{`User: ${user}`}</h1>
       {messages.map((message: Message) => (
         <p key={message.id} className='message'>
-          <div>{message.text}</div>
+          <div>{`${message.user_id}: ${message.text}`}</div>
         </p>
       ))}
       <div className='controls'>
