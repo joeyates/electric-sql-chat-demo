@@ -55,7 +55,7 @@ const Chat = () => {
 
 const ChatComponent = () => {
   const {db} = useElectric()!
-  const {results} = useLiveQuery(db.messages.liveMany())
+  const {results} = useLiveQuery(db.messages.liveMany({orderBy: {time: 'asc'}}))
   const [text, setText] = useState('')
 
   const user = useMemo(() => genUUID(), [])
@@ -75,6 +75,7 @@ const ChatComponent = () => {
       data: {
         id: genUUID(),
         user_id: user,
+        time: new Date().toISOString(),
         text
       }
     })
