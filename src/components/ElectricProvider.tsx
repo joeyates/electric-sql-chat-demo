@@ -41,7 +41,7 @@ const ElectricProvider = ({children}: {children: JSX.Element}) => {
   }, [])
 
   if (!electric) {
-    return null
+    return <div>Loading...</div>
   }
 
   return <Provider db={electric}>{children}</Provider>
