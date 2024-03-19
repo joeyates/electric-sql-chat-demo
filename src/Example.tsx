@@ -5,7 +5,7 @@ import { makeElectricContext, useLiveQuery } from 'electric-sql/react'
 import { genUUID, uniqueTabId } from 'electric-sql/util'
 import { ElectricDatabase, electrify } from 'electric-sql/wa-sqlite'
 
-import { authToken } from './auth'
+import { authToken } from './lib/auth'
 import { Electric, Items as Item, schema } from './generated/client'
 
 import './Example.css'

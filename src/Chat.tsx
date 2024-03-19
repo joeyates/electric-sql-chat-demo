@@ -1,59 +1,11 @@
 import {useEffect, useMemo, useState} from 'react'
-import {LIB_VERSION} from 'electric-sql/version'
-import {makeElectricContext, useLiveQuery} from 'electric-sql/react'
-import {genUUID, uniqueTabId} from 'electric-sql/util'
-import {Electric, Messages as Message, schema} from './generated/client'
-import {ElectricDatabase, electrify} from 'electric-sql/wa-sqlite'
+import {useLiveQuery} from 'electric-sql/react'
+import {genUUID} from 'electric-sql/util'
+import {Messages as Message} from './generated/client'
 
-import {authToken} from './auth'
-
-const {ElectricProvider, useElectric} = makeElectricContext<Electric>()
+import {useElectric} from './lib/electric'
 
 const Chat = () => {
-  const [electric, setElectric] = useState<Electric>()
-
-  useEffect(() => {
-    let isMounted = true
-
-    const init = async () => {
-      const config = {
-        debug: import.meta.env.DEV,
-        url: import.meta.env.ELECTRIC_SERVICE
-      }
-
-      const {tabId} = uniqueTabId()
-      const scopedDbName = `basic-${LIB_VERSION}-${tabId}.db`
-
-      const conn = await ElectricDatabase.init(scopedDbName)
-      const electric = await electrify(conn, schema, config)
-      await electric.connect(authToken())
-
-      if (!isMounted) {
-        return
-      }
-
-      setElectric(electric)
-    }
-
-    init()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
-
-  if (electric === undefined) {
-    return null
-  }
-
-  return (
-    <ElectricProvider db={electric}>
-      <ChatComponent />
-    </ElectricProvider>
-  )
-}
-
-const ChatComponent = () => {
   const {db} = useElectric()!
   const {results} = useLiveQuery(db.messages.liveMany({orderBy: {time: 'asc'}}))
   const [text, setText] = useState('')
@@ -96,9 +48,9 @@ const ChatComponent = () => {
     <div>
       <h1>{`User: ${user}`}</h1>
       {messages.map((message: Message) => (
-        <p key={message.id} className='message'>
+        <div key={message.id} className='message'>
           <div>{`${message.user_id}: ${message.text}`}</div>
-        </p>
+        </div>
       ))}
       <div className='controls'>
         <input type='text' value={text} onChange={onChange} />
@@ -113,4 +65,4 @@ const ChatComponent = () => {
   )
 }
 
-export {Chat}
+export default Chat
