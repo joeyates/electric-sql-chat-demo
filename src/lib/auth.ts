@@ -1,5 +1,5 @@
-import { insecureAuthToken } from 'electric-sql/auth'
-import { genUUID } from 'electric-sql/util'
+import {insecureAuthToken} from 'electric-sql/auth'
+import {genUUID} from 'electric-sql/util'
 
 // Generate an insecure authentication JWT.
 // See https://electric-sql.com/docs/usage/auth for more details.
@@ -12,6 +12,31 @@ export const authToken = () => {
     sub = genUUID()
     window.sessionStorage.setItem(subKey, sub)
   }
-  const claims = { sub }
+  const claims = {sub}
   return insecureAuthToken(claims)
 }
+
+const INSECURE_USER_REGISTRY: {[key: string]: string} = {
+  me: 'mysecret'
+}
+
+type User = {
+  name: string
+}
+
+const authenticate = async (
+  username: string,
+  password: string
+): Promise<User | null> => {
+  const auth = INSECURE_USER_REGISTRY[username]
+  if (!auth) {
+    return null
+  }
+
+  if (auth === password) {
+    return {name: username}
+  }
+  return null
+}
+
+export {authenticate, type User}
