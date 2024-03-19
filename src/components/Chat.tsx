@@ -1,9 +1,9 @@
 import {useEffect, useMemo, useState} from 'react'
 import {useLiveQuery} from 'electric-sql/react'
 import {genUUID} from 'electric-sql/util'
-import {Messages as Message} from './generated/client'
+import {Messages as Message} from '../generated/client'
 
-import {useElectric} from './lib/electric'
+import {useElectric} from '../lib/electric'
 
 const Chat = () => {
   const {db} = useElectric()!

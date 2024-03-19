@@ -8,12 +8,11 @@ import {
   useLocation
 } from 'react-router-dom'
 
-import logo from './assets/logo.svg'
-import {authenticate, type User} from './lib/auth'
+import logo from '../assets/logo.svg'
+import {authenticate, type User} from '../lib/auth'
 import './App.css'
-import './style.css'
 
-import ElectricProvider from './components/ElectricProvider'
+import ElectricProvider from './ElectricProvider'
 import Chat from './Chat'
 
 export default function App() {
