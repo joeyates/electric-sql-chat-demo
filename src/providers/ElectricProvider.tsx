@@ -24,7 +24,11 @@ const ElectricProvider = ({children}: {children: JSX.Element}) => {
 
       const conn = await ElectricDatabase.init(scopedDbName)
       const electric = await electrify(conn, schema, config)
-      await electric.connect(authToken())
+      const token = authToken()
+      if (!token) {
+        throw new Error('User not authenticated')
+      }
+      await electric.connect(token)
 
       if (!isMounted) {
         return
