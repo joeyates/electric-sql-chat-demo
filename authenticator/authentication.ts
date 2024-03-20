@@ -72,9 +72,11 @@ app.post('/api/authenticate', async (req, res) => {
       [username]
     )
     if (result.rows.length === 0) {
-      // TODO: Sleep for a random amount of time to protect against timing attacks.
-      const response = JSON.stringify({error: AUTHENTICATION_FAILED_MESSAGE})
-      res.status(401).end(response)
+      // Sleep for a random amount of time to protect against timing attacks.
+      setTimeout(() => {
+        const response = JSON.stringify({error: AUTHENTICATION_FAILED_MESSAGE})
+        res.status(401).end(response)
+      }, Math.random() * 10)
       return
     }
     if (result.rows[0].password_hash !== passwordHash) {
