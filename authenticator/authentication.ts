@@ -9,9 +9,14 @@ const JWT_SIGNATURE_ALGORITHM = 'HS256'
 
 config({path: ['.env.local', '.env']})
 
-const connectionString = process.env.DATABASE_URL
+const DATABASE_URL = process.env.DATABASE_URL
 const JWT_SIGNATURE_PASSWORD = process.env.JWT_SIGNATURE_PASSWORD
 const PORT = process.env.AUTHENTICATION_ENDPOINT_PORT
+
+if (!DATABASE_URL) {
+  console.error('DATABASE_URL environment variable not set')
+  process.exit(1)
+}
 
 console.log('Starting authentication server...')
 
@@ -34,7 +39,7 @@ const makeJWT = (userId: string) => {
 }
 
 const app = express()
-const client = new pg.Client({connectionString})
+const client = new pg.Client({connectionString: DATABASE_URL})
 await client.connect()
 
 const vite = await createServer({
