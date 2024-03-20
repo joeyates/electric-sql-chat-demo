@@ -1,7 +1,7 @@
 {
-  "name": "electric-sql-create-electric-app",
+  "name": "electric-sql-chat-demo",
   "version": "0.1.0",
-  "author": "ElectricSQL",
+  "author": "Joe Yates",
   "type": "module",
   "scripts": {
     "authentication": "node --loader ts-node/esm authenticator/authentication.ts",
