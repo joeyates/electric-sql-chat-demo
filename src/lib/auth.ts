@@ -1,23 +1,10 @@
-import {insecureAuthToken} from 'electric-sql/auth'
-import {genUUID} from 'electric-sql/util'
+const AUTHENTICATION_ENDPOINT = import.meta.env.ELECTRIC_AUTHENTICATION_ENDPOINT
+const LOGIN_URL = `${AUTHENTICATION_ENDPOINT}/api/authenticate`
+const JWT_SESSION_KEY = '__electric_jwt'
+const USERNAME_SESSION_KEY = '__electric_username'
 
-// Generate an insecure authentication JWT.
-// See https://electric-sql.com/docs/usage/auth for more details.
 export const authToken = () => {
-  const subKey = '__electric_sub'
-  let sub = window.sessionStorage.getItem(subKey)
-  if (!sub) {
-    // This is just a demo. In a real app, the user ID would
-    // usually come from somewhere else :)
-    sub = genUUID()
-    window.sessionStorage.setItem(subKey, sub)
-  }
-  const claims = {sub}
-  return insecureAuthToken(claims)
-}
-
-const INSECURE_USER_REGISTRY: {[key: string]: string} = {
-  me: 'mysecret'
+  return window.sessionStorage.getItem(JWT_SESSION_KEY)
 }
 
 type User = {
@@ -28,15 +15,21 @@ const authenticate = async (
   username: string,
   password: string
 ): Promise<User | null> => {
-  const auth = INSECURE_USER_REGISTRY[username]
-  if (!auth) {
+  const body = JSON.stringify({username, password})
+  const request = new Request(LOGIN_URL, {
+    method: 'POST',
+    headers: new Headers({'Content-Type': 'application/json'}),
+    body
+  })
+  const response = await fetch(request)
+  if (!response.ok) {
     return null
   }
-
-  if (auth === password) {
-    return {name: username}
-  }
-  return null
+  const {data} = await response.json()
+  const jwt = data.jwt
+  window.sessionStorage.setItem(JWT_SESSION_KEY, jwt)
+  window.sessionStorage.setItem(USERNAME_SESSION_KEY, data.user.username)
+  return {name: data.user.username}
 }
 
 export {authenticate, type User}

@@ -15,17 +15,22 @@ const PORT = process.env.AUTHENTICATION_ENDPOINT_PORT
 
 console.log('Starting authentication server...')
 
-const makeJWT = (user_id: string) => {
+const makeJWT = (userId: string) => {
   const header = {alg: JWT_SIGNATURE_ALGORITHM, typ: 'JWT'}
   const now = KJUR.jws.IntDate.get('now')
   const expiry = KJUR.jws.IntDate.get('now + 1day')
   const payload = {
-    sub: user_id,
+    sub: userId,
     nbf: now,
     iat: now,
     exp: expiry
   }
-  return KJUR.jws.JWS.sign(JWT_SIGNATURE_ALGORITHM, header, payload, JWT_SIGNATURE_PASSWORD)
+  return KJUR.jws.JWS.sign(
+    JWT_SIGNATURE_ALGORITHM,
+    header,
+    payload,
+    JWT_SIGNATURE_PASSWORD
+  )
 }
 
 const app = express()
@@ -43,20 +48,23 @@ app.use(express.json())
 app.post('/api/authenticate', async (req, res) => {
   res.set({'Content-Type': 'application/json'})
   if (!req.body.username) {
-    res.status(400).end('No username supplied')
+    const response = JSON.stringify({error: 'No username supplied'})
+    res.status(400).end(response)
     return
   }
   if (!req.body.password) {
-    res.status(400).end('No password supplied')
+    const response = JSON.stringify({error: 'No password supplied'})
+    res.status(400).end(response)
     return
   }
   try {
+    const username = req.body.username
     // Pretend we're hashing the password here
     // Hash the password whether the username exists or not to protect against timing attacks.
     const passwordHash = req.body.password
     const result = await client.query(
       'SELECT id, password_hash from users where username = $1',
-      [req.body.username]
+      [username]
     )
     if (result.rows.length === 0) {
       // TODO: Sleep for a random amount of time to protect against timing attacks.
@@ -69,8 +77,8 @@ app.post('/api/authenticate', async (req, res) => {
       res.status(401).end(response)
       return
     }
-    const user_id = result.rows[0].id
-    const data = {jwt: makeJWT(user_id)}
+    const userId = result.rows[0].id
+    const data = {jwt: makeJWT(userId), user: {id: userId, username}}
     const json = JSON.stringify({data})
     res.status(200).end(json)
   } catch (error) {
