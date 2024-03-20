@@ -4,7 +4,6 @@ import {createServer} from 'vite'
 import pg from 'pg'
 import {config} from 'dotenv'
 
-const PORT = 4173
 const AUTHENTICATION_FAILED_MESSAGE = 'Authentication failed'
 const JWT_SIGNATURE_ALGORITHM = 'HS256'
 
@@ -12,6 +11,7 @@ config({path: ['.env.local', '.env']})
 
 const connectionString = process.env.DATABASE_URL
 const JWT_SIGNATURE_PASSWORD = process.env.JWT_SIGNATURE_PASSWORD
+const PORT = process.env.AUTHENTICATION_ENDPOINT_PORT
 
 console.log('Starting authentication server...')
 
