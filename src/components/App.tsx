@@ -6,7 +6,6 @@ import Login from './Login'
 import RequireAuth from './RequireAuth'
 import AuthProvider from '../providers/AuthProvider'
 import ElectricProvider from '../providers/ElectricProvider'
-import './App.css'
 
 export default function App() {
   return (

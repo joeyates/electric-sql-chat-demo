@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom'
 
 import {useAuth} from '../contexts/AuthContext'
+import './AuthStatus.css'
 
 const AuthStatus = () => {
   const auth = useAuth()
@@ -11,8 +12,8 @@ const AuthStatus = () => {
   }
 
   return (
-    <p>
-      User: {auth.user.name}{' '}
+    <div className='AuthStatus'>
+      <span className='AuthStatus-user'>User: {auth.user.name}</span>{' '}
       <button
         onClick={async () => {
           await auth.signout()
@@ -21,7 +22,7 @@ const AuthStatus = () => {
       >
         Sign out
       </button>
-    </p>
+    </div>
   )
 }
 

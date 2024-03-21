@@ -1,15 +1,15 @@
-.App {
+.Layout {
   text-align: center;
 }
 
-.App-logo {
+.Layout-logo {
   height: min(160px, 30vmin);
   pointer-events: none;
   margin-top: min(30px, 5vmin);
   margin-bottom: min(30px, 5vmin);
 }
 
-.App-header {
+.Layout-header {
   background-color: #1c1e20;
   min-height: 100vh;
   display: flex;
@@ -20,6 +20,6 @@
   color: white;
 }
 
-.App-link {
+.Layout-link {
   color: #61dafb;
 }

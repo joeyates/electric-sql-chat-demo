@@ -1,14 +1,15 @@
 import {Outlet} from 'react-router-dom'
 
 import AuthStatus from './AuthStatus'
+import './Layout.css'
 import logo from '../assets/logo.svg'
 
 const Layout = () => {
   return (
-    <div className='App'>
+    <div className='Layout'>
       <AuthStatus />
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
+      <header className='Layout-header'>
+        <img src={logo} className='Layout-logo' alt='logo' />
         <Outlet />
       </header>
     </div>
