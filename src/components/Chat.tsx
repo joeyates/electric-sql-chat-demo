@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useLiveQuery} from 'electric-sql/react'
 import {genUUID} from 'electric-sql/util'
 
