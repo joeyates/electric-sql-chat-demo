@@ -27,6 +27,7 @@ export type Messages = {
    */
   user_id: string | null
   time: Date | null
+  username: string
 }
 
 
@@ -826,6 +827,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text: string | null
     user_id: string | null
     time: Date | null
+    username: string | null
   }
 
   export type MessagesMaxAggregateOutputType = {
@@ -833,6 +835,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text: string | null
     user_id: string | null
     time: Date | null
+    username: string | null
   }
 
   export type MessagesCountAggregateOutputType = {
@@ -840,6 +843,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text: number
     user_id: number
     time: number
+    username: number
     _all: number
   }
 
@@ -849,6 +853,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: true
     user_id?: true
     time?: true
+    username?: true
   }
 
   export type MessagesMaxAggregateInputType = {
@@ -856,6 +861,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: true
     user_id?: true
     time?: true
+    username?: true
   }
 
   export type MessagesCountAggregateInputType = {
@@ -863,6 +869,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: true
     user_id?: true
     time?: true
+    username?: true
     _all?: true
   }
 
@@ -949,6 +956,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text: string | null
     user_id: string | null
     time: Date | null
+    username: string
     _count: MessagesCountAggregateOutputType | null
     _min: MessagesMinAggregateOutputType | null
     _max: MessagesMaxAggregateOutputType | null
@@ -973,6 +981,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: boolean
     user_id?: boolean
     time?: boolean
+    username?: boolean
   }
 
 
@@ -1742,7 +1751,8 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     id: 'id',
     text: 'text',
     user_id: 'user_id',
-    time: 'time'
+    time: 'time',
+    username: 'username'
   };
 
   export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
@@ -1787,6 +1797,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: StringNullableFilter | string | null
     user_id?: UuidNullableFilter | string | null
     time?: DateTimeNullableFilter | Date | string | null
+    username?: StringFilter | string
   }
 
   export type MessagesOrderByWithRelationInput = {
@@ -1794,6 +1805,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: SortOrder
     user_id?: SortOrder
     time?: SortOrder
+    username?: SortOrder
   }
 
   export type MessagesWhereUniqueInput = {
@@ -1805,6 +1817,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: SortOrder
     user_id?: SortOrder
     time?: SortOrder
+    username?: SortOrder
     _count?: MessagesCountOrderByAggregateInput
     _max?: MessagesMaxOrderByAggregateInput
     _min?: MessagesMinOrderByAggregateInput
@@ -1818,6 +1831,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: StringNullableWithAggregatesFilter | string | null
     user_id?: UuidNullableWithAggregatesFilter | string | null
     time?: DateTimeNullableWithAggregatesFilter | Date | string | null
+    username?: StringWithAggregatesFilter | string
   }
 
   export type MessagesCreateInput = {
@@ -1825,6 +1839,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: string | null
     user_id?: string | null
     time?: Date | string | null
+    username: string
   }
 
   export type MessagesUncheckedCreateInput = {
@@ -1832,6 +1847,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: string | null
     user_id?: string | null
     time?: Date | string | null
+    username: string
   }
 
   export type MessagesUpdateInput = {
@@ -1839,6 +1855,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: NullableStringFieldUpdateOperationsInput | string | null
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUncheckedUpdateInput = {
@@ -1846,6 +1863,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: NullableStringFieldUpdateOperationsInput | string | null
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesCreateManyInput = {
@@ -1853,6 +1871,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: string | null
     user_id?: string | null
     time?: Date | string | null
+    username: string
   }
 
   export type MessagesUpdateManyMutationInput = {
@@ -1860,6 +1879,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: NullableStringFieldUpdateOperationsInput | string | null
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type MessagesUncheckedUpdateManyInput = {
@@ -1867,6 +1887,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: NullableStringFieldUpdateOperationsInput | string | null
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    username?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter = {
@@ -1919,11 +1940,27 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
+  export type StringFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringFilter | string
+  }
+
   export type MessagesCountOrderByAggregateInput = {
     id?: SortOrder
     text?: SortOrder
     user_id?: SortOrder
     time?: SortOrder
+    username?: SortOrder
   }
 
   export type MessagesMaxOrderByAggregateInput = {
@@ -1931,6 +1968,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: SortOrder
     user_id?: SortOrder
     time?: SortOrder
+    username?: SortOrder
   }
 
   export type MessagesMinOrderByAggregateInput = {
@@ -1938,6 +1976,7 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     text?: SortOrder
     user_id?: SortOrder
     time?: SortOrder
+    username?: SortOrder
   }
 
   export type UuidWithAggregatesFilter = {
@@ -2002,6 +2041,24 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     _max?: NestedDateTimeNullableFilter
   }
 
+  export type StringWithAggregatesFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter | string
+    _count?: NestedIntFilter
+    _min?: NestedStringFilter
+    _max?: NestedStringFilter
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2061,6 +2118,20 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     not?: NestedDateTimeNullableFilter | Date | string | null
   }
 
+  export type NestedStringFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringFilter | string
+  }
+
   export type NestedUuidWithAggregatesFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -2084,20 +2155,6 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     gt?: number
     gte?: number
     not?: NestedIntFilter | number
-  }
-
-  export type NestedStringFilter = {
-    equals?: string
-    in?: Enumerable<string>
-    notIn?: Enumerable<string>
-    lt?: string
-    lte?: string
-    gt?: string
-    gte?: string
-    contains?: string
-    startsWith?: string
-    endsWith?: string
-    not?: NestedStringFilter | string
   }
 
   export type NestedStringNullableWithAggregatesFilter = {
@@ -2154,6 +2211,23 @@ export type InputJsonValue = null | string | number | boolean | InputJsonObject 
     _count?: NestedIntNullableFilter
     _min?: NestedDateTimeNullableFilter
     _max?: NestedDateTimeNullableFilter
+  }
+
+  export type NestedStringWithAggregatesFilter = {
+    equals?: string
+    in?: Enumerable<string>
+    notIn?: Enumerable<string>
+    lt?: string
+    lte?: string
+    gt?: string
+    gte?: string
+    contains?: string
+    startsWith?: string
+    endsWith?: string
+    not?: NestedStringWithAggregatesFilter | string
+    _count?: NestedIntFilter
+    _min?: NestedStringFilter
+    _max?: NestedStringFilter
   }
 
 
