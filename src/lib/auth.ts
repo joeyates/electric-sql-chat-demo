@@ -31,4 +31,21 @@ const authenticate = async (
   return user
 }
 
-export {authenticate}
+const register = async (
+  username: string,
+  password: string
+): Promise<User | null> => {
+  const body = JSON.stringify({username, password})
+  const request = new Request(`${AUTHENTICATION_ENDPOINT}/api/register`, {
+    method: 'POST',
+    headers: new Headers({'Content-Type': 'application/json'}),
+    body
+  })
+  const response = await fetch(request)
+  if (!response.ok) {
+    return null
+  }
+  return authenticate(username, password)
+}
+
+export {authenticate, register}
