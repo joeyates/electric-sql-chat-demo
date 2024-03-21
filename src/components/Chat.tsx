@@ -6,6 +6,18 @@ import type {User} from '../../authenticator/authentication.d'
 import {useAuth} from '../contexts/AuthContext'
 import {useElectric} from '../contexts/ElectricContext'
 import {Messages as Message} from '../generated/client'
+import './Chat.css'
+
+const MessageBox = ({message, user}: {message: Message; user: User}) => {
+  const mine = message.user_id === user.id
+  const text = mine ? message.text : `${message.username}: ${message.text}`
+
+  return (
+    <div key={message.id} className={mine ? 'Chat-me' : 'Chat-them'}>
+      <div>{text}</div>
+    </div>
+  )
+}
 
 const Chat = () => {
   const auth = useAuth()
@@ -48,7 +60,9 @@ const Chat = () => {
     await db.messages.deleteMany()
   }
 
-  const onChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange: React.ChangeEventHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setText(event.target.value)
   }
 
@@ -56,11 +70,11 @@ const Chat = () => {
 
   return (
     <div>
-      {messages.map((message: Message) => (
-        <div key={message.id} className='message'>
-          <div>{`${message.username}: ${message.text}`}</div>
-        </div>
-      ))}
+      <div className='Chat'>
+        {messages.map((message: Message) => (
+          <MessageBox message={message} user={user} />
+        ))}
+      </div>
       <form onSubmit={handleSubmit}>
         <input type='text' value={text} onChange={onChange} />
         <button type='submit'>Send</button>

@@ -1,0 +1,23 @@
+.Chat {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.Chat-me {
+  align-self: end;
+  margin: 0.2rem 0;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: white;
+  background: #6060c0;
+}
+
+.Chat-them {
+  align-self: start;
+  margin: 0.2rem 0;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: white;
+  background: #303030;
+}
