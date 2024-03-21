@@ -1,7 +1,8 @@
 .Chat {
-  padding: 4rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
+  font-size: 1.5rem;
 }
 
 .Chat-me {
@@ -20,4 +21,26 @@
   border-radius: 1rem;
   color: white;
   background: #303030;
+}
+
+.Chat-input {
+  height: 2.5rem;
+  width: calc(100% - 4rem);
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+  padding: 0 1rem;
+  font-size: 2rem;
+  color: white;
+  background: #303030;
+}
+
+.Chat-send {
+  display: none;
+}
+
+.Chat-clear {
+  margin-left: 0.5rem;
+  margin-top: 4rem;
+  height: 2rem;
 }

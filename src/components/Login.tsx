@@ -29,19 +29,21 @@ const Login = () => {
     <div>
       <p>Please log in</p>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Username: <input name='username' type='text' />
-        </label>{' '}
-        <label>
-          Password: <input name='password' type='password' />
-        </label>{' '}
-        <button type='submit'>Login</button>
+      <form className='Login-form' onSubmit={handleSubmit}>
+          <label>
+            Username: <input className='Login-input' name='username' type='text' />
+          </label>{' '}
+          <label>
+            Password: <input className='Login-input' name='password' type='password' />
+          </label>{' '}
+        <button className='Login-submit' type='submit'>Login</button>
       </form>
 
       <div className='Login-no-account'>
         Don't have an account?
-        <button className='Login-signup' onClick={() => navigate('/signup')}>Sign up</button>
+        <button className='Login-signup' onClick={() => navigate('/signup')}>
+          Sign up
+        </button>
       </div>
     </div>
   )

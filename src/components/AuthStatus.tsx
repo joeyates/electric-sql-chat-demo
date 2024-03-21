@@ -8,12 +8,16 @@ const AuthStatus = () => {
   const navigate = useNavigate()
 
   if (!auth.user) {
-    return <p>You are not logged in.</p>
+    return (
+      <div className='AuthStatus'>
+        <p>You are not logged in.</p>
+      </div>
+    )
   }
 
   return (
     <div className='AuthStatus'>
-      <span className='AuthStatus-user'>User: {auth.user.name}</span>{' '}
+      <span>{auth.user.name}</span>{' '}
       <button
         onClick={async () => {
           await auth.signout()

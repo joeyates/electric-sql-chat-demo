@@ -10,8 +10,8 @@ const Layout = () => {
       <AuthStatus />
       <header className='Layout-header'>
         <img src={logo} className='Layout-logo' alt='logo' />
-        <Outlet />
       </header>
+      <Outlet />
     </div>
   )
 }

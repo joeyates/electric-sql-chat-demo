@@ -1,3 +1,19 @@
+.Signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Signup-input {
+  font-size: 1.5rem;
+}
+
+.Signup-submit {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
 .Signup-have-account {
   margin-top: 3rem;
   text-align: center;

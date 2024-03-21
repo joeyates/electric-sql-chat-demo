@@ -76,11 +76,11 @@ const Chat = () => {
         ))}
       </div>
       <form onSubmit={handleSubmit}>
-        <input type='text' value={text} onChange={onChange} />
-        <button type='submit'>Send</button>
+        <input className='Chat-input' type='text' value={text} onChange={onChange} />
+        <button className='Chat-send' type='submit'>Send</button>
       </form>
       <div className='actions'>
-        <button className='button' onClick={clearMessages}>
+        <button className='Chat-clear' onClick={clearMessages}>
           Clear chat history
         </button>
       </div>

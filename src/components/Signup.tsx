@@ -26,14 +26,14 @@ const Signup = () => {
     <div>
       <p>Create an account</p>
 
-      <form onSubmit={handleSubmit}>
+      <form className='Signup-form' onSubmit={handleSubmit}>
         <label>
-          Username: <input name='username' type='text' />
+          Username: <input className='Signup-input' name='username' type='text' />
         </label>{' '}
         <label>
-          Password: <input name='password' type='password' />
+          Password: <input className='Signup-input' name='password' type='password' />
         </label>{' '}
-        <button type='submit'>Sign me up!</button>
+        <button className='Signup-submit' type='submit'>Sign me up!</button>
       </form>
 
       <div className='Signup-have-account'>
