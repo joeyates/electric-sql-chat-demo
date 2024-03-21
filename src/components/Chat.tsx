@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useLiveQuery} from 'electric-sql/react'
 import {genUUID} from 'electric-sql/util'
+import type {User} from '../../authenticator/authentication.d'
 
 import {useAuth} from '../contexts/AuthContext'
 import {useElectric} from '../contexts/ElectricContext'
@@ -26,17 +27,16 @@ const Chat = () => {
     return null
   }
 
+  const user = auth.user!
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!auth.user) {
-      return
-    }
     await db.messages.create({
       data: {
         id: genUUID(),
-        user_id: auth.user.id,
-        username: auth.user.name,
+        user_id: user.id,
+        username: user.name,
         time: new Date().toISOString(),
         text
       }
