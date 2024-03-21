@@ -4,7 +4,7 @@ import {createServer} from 'vite'
 import pg from 'pg'
 import {config} from 'dotenv'
 
-import {type AuthenticationResponse} from './authentication.d'
+import type {AuthenticationResponse, RegistrationResponse} from './authentication.d'
 
 const AUTHENTICATION_FAILED_MESSAGE = 'Authentication failed'
 const JWT_SIGNATURE_ALGORITHM = 'HS256'
@@ -89,6 +89,33 @@ app.post('/api/authenticate', async (req, res) => {
     const userId = result.rows[0].id
     const data: AuthenticationResponse = {
       jwt: makeJWT(userId),
+      user: {id: userId, name: username}
+    }
+    const json = JSON.stringify({data})
+    res.status(200).end(json)
+  } catch (error) {
+    const message = JSON.stringify({error: (error as Error).message})
+    res.status(500).end(message)
+  }
+})
+
+app.post('/api/register', async (req, res) => {
+  res.set({'Content-Type': 'application/json'})
+  try {
+    const username = req.body.username
+    // Pretend we're hashing the password here
+    const passwordHash = req.body.password
+    const result = await client.query(
+      'INSERT INTO users(username, password_hash) VALUES($1, $2) RETURNING *',
+      [username, passwordHash]
+    )
+    if (result.rows.length === 0) {
+      const response = JSON.stringify({error: 'User creation failed, please try again'})
+      res.status(401).end(response)
+      return
+    }
+    const userId = result.rows[0].id
+    const data: RegistrationResponse = {
       user: {id: userId, name: username}
     }
     const json = JSON.stringify({data})

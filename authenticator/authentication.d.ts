@@ -7,3 +7,7 @@ export type AuthenticationResponse = {
   jwt: string
   user: User
 }
+
+export type RegistrationResponse = {
+  user: User
+}
