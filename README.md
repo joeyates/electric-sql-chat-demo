@@ -12,9 +12,17 @@
   </picture>
 </a>
 
-# Welcome to your ElectricSQL app!
+# ElectricSQL Chat Demo
 
-This is a web application using ElectricSQL in the browser with [wa-sqlite](https://electric-sql.com/docs/integrations/drivers/web/wa-sqlite).
+This application presents a single-channel chat.
+
+Users can register and participate in the chat.
+
+N.B. Until the [work on shapes](https://electric-sql.com/docs/reference/roadmap#shapes)
+progresses, it will not be possible to have private chats where users only have access
+to messages that have been sent to/by them.
+
+The application uses ElectricSQL in the browser with [wa-sqlite](https://electric-sql.com/docs/integrations/drivers/web/wa-sqlite).
 
 ## Pre-reqs
 
@@ -30,48 +38,26 @@ npm install
 
 ## Setup
 
-Start Postgres and Electric using Docker (see [running the examples](https://electric-sql.com/docs/examples/notes/running) for more options):
+Start Postgres and Electric using Docker:
 
-```shell
+```sh
 npm run backend:up
-# Or `npm run backend:start` to foreground
 ```
 
-Note that, if useful, you can connect to Postgres using:
+Create the database tables:
 
-```shell
-npm run db:psql
-```
-
-Setup your [database schema](https://electric-sql.com/docs/usage/data-modelling):
-
-```shell
+```sh
 npm run db:migrate
-```
-
-Generate your [type-safe client](https://electric-sql.com/docs/usage/data-access/client):
-
-```shell
-npm run client:generate
-# or `npm run client:watch`` to re-generate whenever the DB schema changes
 ```
 
 ## Run
 
-Start your app:
+Start the app:
 
 ```sh
 npm run dev
 ```
-<!-- see https://vitejs.dev/config/server-options#server-port for default Vite port -->
+
 Open [localhost:5173](http://localhost:5173) in your web browser.
 
-## Develop
-
-This template contains the basic Electric code which you can adapt to your use case. For more information see the:
-
-- [Documentation](https://electric-sql.com/docs)
-- [Quickstart](https://electric-sql.com/docs/quickstart)
-- [Usage guide](https://electric-sql.com/docs/usage)
-
-If you need help [let us know on Discord](https://discord.electric-sql.com).
+An authentication server, running on port 4173 is also started.
