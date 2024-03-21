@@ -1,6 +1,6 @@
 import {createContext, useContext} from 'react'
 
-import {type User} from '../lib/auth'
+import type {User} from '../../authenticator/authentication.d'
 
 interface AuthContextType {
   user: User | null

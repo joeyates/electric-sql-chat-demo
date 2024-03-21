@@ -4,6 +4,8 @@ import {createServer} from 'vite'
 import pg from 'pg'
 import {config} from 'dotenv'
 
+import {type AuthenticationResponse} from './authentication.d'
+
 const AUTHENTICATION_FAILED_MESSAGE = 'Authentication failed'
 const JWT_SIGNATURE_ALGORITHM = 'HS256'
 
@@ -85,7 +87,10 @@ app.post('/api/authenticate', async (req, res) => {
       return
     }
     const userId = result.rows[0].id
-    const data = {jwt: makeJWT(userId), user: {id: userId, username}}
+    const data: AuthenticationResponse = {
+      jwt: makeJWT(userId),
+      user: {id: userId, name: username}
+    }
     const json = JSON.stringify({data})
     res.status(200).end(json)
   } catch (error) {

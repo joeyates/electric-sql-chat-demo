@@ -1,3 +1,5 @@
+import type {AuthenticationResponse, User} from '../../authenticator/authentication.d'
+
 const AUTHENTICATION_ENDPOINT = import.meta.env.ELECTRIC_AUTHENTICATION_ENDPOINT
 const LOGIN_URL = `${AUTHENTICATION_ENDPOINT}/api/authenticate`
 const JWT_SESSION_KEY = '__electric_jwt'
@@ -5,10 +7,6 @@ const USERNAME_SESSION_KEY = '__electric_username'
 
 export const authToken = () => {
   return window.sessionStorage.getItem(JWT_SESSION_KEY)
-}
-
-type User = {
-  name: string
 }
 
 const authenticate = async (
@@ -25,11 +23,12 @@ const authenticate = async (
   if (!response.ok) {
     return null
   }
-  const {data} = await response.json()
+  const {data}: {data: AuthenticationResponse} = await response.json()
   const jwt = data.jwt
+  const user = data.user
   window.sessionStorage.setItem(JWT_SESSION_KEY, jwt)
-  window.sessionStorage.setItem(USERNAME_SESSION_KEY, data.user.username)
-  return {name: data.user.username}
+  window.sessionStorage.setItem(USERNAME_SESSION_KEY, user.name)
+  return user
 }
 
-export {authenticate, type User}
+export {authenticate}
