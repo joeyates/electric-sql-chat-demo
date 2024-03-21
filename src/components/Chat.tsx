@@ -3,8 +3,8 @@ import {useLiveQuery} from 'electric-sql/react'
 import {genUUID} from 'electric-sql/util'
 
 import {useAuth} from '../contexts/AuthContext'
-import {Messages as Message} from '../generated/client'
 import {useElectric} from '../contexts/ElectricContext'
+import {Messages as Message} from '../generated/client'
 
 const Chat = () => {
   const auth = useAuth()
@@ -26,7 +26,9 @@ const Chat = () => {
     return null
   }
 
-  const addMessage = async () => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
     if (!auth.user) {
       return
     }
@@ -46,8 +48,8 @@ const Chat = () => {
     await db.messages.deleteMany()
   }
 
-  const onChange: React.ChangeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value)
+  const onChange: React.ChangeEventHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value)
   }
 
   const messages: Message[] = results ?? []
@@ -59,13 +61,13 @@ const Chat = () => {
           <div>{`${message.username}: ${message.text}`}</div>
         </div>
       ))}
-      <div className='controls'>
+      <form onSubmit={handleSubmit}>
         <input type='text' value={text} onChange={onChange} />
-        <button className='button' onClick={addMessage}>
-          Add
-        </button>
+        <button type='submit'>Send</button>
+      </form>
+      <div className='actions'>
         <button className='button' onClick={clearMessages}>
-          Clear
+          Clear chat history
         </button>
       </div>
     </div>
