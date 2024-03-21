@@ -1,6 +1,6 @@
 {
   "name": "electric-sql-chat-demo",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Joe Yates",
   "type": "module",
   "scripts": {
