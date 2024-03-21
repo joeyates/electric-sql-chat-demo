@@ -4,7 +4,7 @@ import type {User} from '../../authenticator/authentication.d'
 
 interface AuthContextType {
   user: User | null
-  signin: (name: string, password: string) => Promise<void>
+  signin: (name: string, password: string) => Promise<User | null>
   signout: () => Promise<void>
 }
 

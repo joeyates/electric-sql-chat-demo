@@ -17,7 +17,10 @@ const Login = () => {
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    await auth.signin(username, password)
+    const user = await auth.signin(username, password)
+    if (!user) {
+      return
+    }
     navigate(from, {replace: true})
   }
 
