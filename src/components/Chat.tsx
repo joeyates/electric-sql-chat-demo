@@ -72,7 +72,7 @@ const Chat = () => {
     <div>
       <div className='Chat'>
         {messages.map((message: Message) => (
-          <MessageBox message={message} user={user} />
+          <MessageBox key={message.id} message={message} user={user} />
         ))}
       </div>
       <form onSubmit={handleSubmit}>
