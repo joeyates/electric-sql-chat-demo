@@ -4,7 +4,7 @@ import {genUUID} from 'electric-sql/util'
 
 import {useAuth} from '../contexts/AuthContext'
 import {Messages as Message} from '../generated/client'
-import {useElectric} from '../lib/electric'
+import {useElectric} from '../contexts/ElectricContext'
 
 const Chat = () => {
   const auth = useAuth()

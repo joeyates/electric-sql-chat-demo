@@ -4,8 +4,10 @@ import {LIB_VERSION} from 'electric-sql/version'
 import {ElectricDatabase, electrify} from 'electric-sql/wa-sqlite'
 
 import {authToken} from '../lib/auth'
-import {Provider} from '../lib/electric'
+import ElectricContext from "../contexts/ElectricContext"
 import {Electric, schema} from '../generated/client'
+
+const Provider = ElectricContext.ElectricProvider
 
 const ElectricProvider = ({children}: {children: JSX.Element}) => {
   const [electric, setElectric] = useState<Electric>()
