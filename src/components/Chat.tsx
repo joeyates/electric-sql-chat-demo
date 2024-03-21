@@ -46,7 +46,6 @@ const Chat = () => {
 
   return (
     <div>
-      <h1>{`User: ${user}`}</h1>
       {messages.map((message: Message) => (
         <div key={message.id} className='message'>
           <div>{`${message.user_id}: ${message.text}`}</div>
