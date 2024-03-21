@@ -1,15 +1,12 @@
 import React from 'react'
-import {useNavigate, useLocation} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 
 import {useAuth} from '../contexts/AuthContext'
-import './Login.css'
+import './Signup.css'
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const auth = useAuth()
-
-  const from = location.state?.from?.pathname || '/'
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -18,16 +15,16 @@ const Login = () => {
     const username = formData.get('username') as string
     const password = formData.get('password') as string
 
-    const user = await auth.signin(username, password)
+    const user = await auth.register(username, password)
     if (!user) {
       return
     }
-    navigate(from, {replace: true})
+    navigate('/login')
   }
 
   return (
     <div>
-      <p>Please log in</p>
+      <p>Create an account</p>
 
       <form onSubmit={handleSubmit}>
         <label>
@@ -36,15 +33,15 @@ const Login = () => {
         <label>
           Password: <input name='password' type='password' />
         </label>{' '}
-        <button type='submit'>Login</button>
+        <button type='submit'>Sign me up!</button>
       </form>
 
-      <div className='Login-no-account'>
-        Don't have an account?
-        <button className='Login-signup' onClick={() => navigate('/signup')}>Sign up</button>
+      <div className='Signup-have-account'>
+        Already have an account?
+        <button className='Signup-login' onClick={() => navigate('/login')}>Log in</button>
       </div>
     </div>
   )
 }
 
-export default Login
+export default Signup

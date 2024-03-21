@@ -4,6 +4,7 @@ import Chat from './Chat'
 import Layout from './Layout'
 import Login from './Login'
 import RequireAuth from './RequireAuth'
+import Signup from './Signup'
 import AuthProvider from '../providers/AuthProvider'
 import ElectricProvider from '../providers/ElectricProvider'
 
@@ -13,6 +14,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/login' element={<Login />}></Route>
+          <Route path='/signup' element={<Signup />}></Route>
           <Route index element={<Navigate to='/chat' replace />}></Route>
           <Route
             path='/chat'
