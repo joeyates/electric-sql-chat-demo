@@ -1,16 +1,16 @@
 import {useEffect, useMemo, useState} from 'react'
 import {useLiveQuery} from 'electric-sql/react'
 import {genUUID} from 'electric-sql/util'
-import {Messages as Message} from '../generated/client'
 
+import {useAuth} from '../contexts/AuthContext'
+import {Messages as Message} from '../generated/client'
 import {useElectric} from '../lib/electric'
 
 const Chat = () => {
+  const auth = useAuth()
   const {db} = useElectric()!
   const {results} = useLiveQuery(db.messages.liveMany({orderBy: {time: 'asc'}}))
   const [text, setText] = useState('')
-
-  const user = useMemo(() => genUUID(), [])
 
   useEffect(() => {
     const syncMessages = async () => {
@@ -22,11 +22,19 @@ const Chat = () => {
     syncMessages()
   }, [])
 
+  if (!auth.user) {
+    return null
+  }
+
   const addMessage = async () => {
+    if (!auth.user) {
+      return
+    }
     await db.messages.create({
       data: {
         id: genUUID(),
-        user_id: user,
+        user_id: auth.user.id,
+        username: auth.user.name,
         time: new Date().toISOString(),
         text
       }
@@ -48,7 +56,7 @@ const Chat = () => {
     <div>
       {messages.map((message: Message) => (
         <div key={message.id} className='message'>
-          <div>{`${message.user_id}: ${message.text}`}</div>
+          <div>{`${message.username}: ${message.text}`}</div>
         </div>
       ))}
       <div className='controls'>
