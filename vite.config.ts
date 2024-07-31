@@ -8,4 +8,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['wa-sqlite'],
   },
+  server: {
+    fs: {
+      strict: false,
+    }
+  }
 })
